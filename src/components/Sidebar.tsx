@@ -12,6 +12,12 @@ export const Sidebar = () => {
             <button
                 onClick={() => navigate("/home")}
                 className="text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg p-3 text-left transition-colors">
+                Buscar
+            </button>
+
+            <button
+                onClick={() => navigate("/home")}
+                className="text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg p-3 text-left transition-colors">
                 Home
             </button>
 

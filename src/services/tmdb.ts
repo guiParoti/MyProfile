@@ -1,10 +1,13 @@
 export interface Filme {
     id: number
     title: string
-    overview: string
-    popularity: number
+    overview: string // descrição
+    popularity: number 
     poster_path: string
     release_date: string
+    vote_average: number
+    runtime: number
+    genres: { id: number, name: string}[]
 }
 
 export const buscarPopulares = async () : Promise<Filme[]> => {
