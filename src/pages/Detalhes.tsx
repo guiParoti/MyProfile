@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { buscaPorId, type Filme } from "../services/tmdb";
+import { useFilme } from "../contexts/FilmeContext/UseFilme";
 
 export const Detalhes = () => {
   const { id } = useParams();
@@ -8,6 +9,7 @@ export const Detalhes = () => {
   const [showReview, setShowReview] = useState<boolean>(false);
   const [nota, setNota] = useState<number>(1);
   const [review, setReview] = useState<string>("");
+  const { adicionarFilme } = useFilme()
 
   useEffect(() => {
     const buscar = async (idFilme: string) => {
@@ -113,6 +115,10 @@ export const Detalhes = () => {
                 <button
                   type="button"
                   className="bg-blue-600 text-white rounded-lg p-3 flex-1 font-bold hover:bg-blue-700"
+                  onClick={() => {
+                    if(filme) adicionarFilme(filme)
+                      setShowReview(false)
+                  }}
                 >
                   Salvar
                 </button>

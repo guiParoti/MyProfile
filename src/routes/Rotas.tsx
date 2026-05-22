@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { Home } from "../pages/Home"
 import { Detalhes } from "../pages/Detalhes"
 import { Layout } from "../components/Layout"
+import { MeusFilmes } from "../pages/MeusFilmes"
 
 export const Rotas = () => {
     return (
@@ -16,7 +17,9 @@ export const Rotas = () => {
                 <Layout>
                     <Detalhes/>
                 </Layout>}/>
-            <Route path="/meusfilmes" element={<h1>Meus filmes</h1>}/>
+            <Route path="/meusfilmes" element={<Layout>
+                <MeusFilmes/>
+            </Layout>}/>
         </Routes>
     )
 }
