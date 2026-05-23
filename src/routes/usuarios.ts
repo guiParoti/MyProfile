@@ -32,6 +32,7 @@ router.post("/login", async (req, res) => {
         "SELECT * FROM usuarios WHERE email = ?", [email]
     )
 
+
     // se não encontrou nenhum usuário com esse email
     if(rows.length === 0) {
         return res.json({ mensagem: "Usuário não encontrado!" })
@@ -47,9 +48,10 @@ router.post("/login", async (req, res) => {
     if(!senhaCorreta) {
         return res.json({ mensagem: "Senha incorreta!" })
     }
-
+    
     // login bem sucedido — retorna dados do usuário (sem a senha)
-    res.json({ mensagem: "Login efetuado!", nome: usuario.nome, email: usuario.email })
+    res.json({ mensagem: "Login efetuado!", id_user: usuario.id_user, nome: usuario.nome, email: usuario.email })
+    
 })
 
 export default router
