@@ -1,5 +1,5 @@
 export interface Usuario {
-    id?: string
+    id_user?: number
     nome: string
     email: string
     senha: string
@@ -28,6 +28,9 @@ export const login = async (email: string, senha: string) : Promise<Usuario | nu
             body: JSON.stringify({email, senha})
         })
         const dados = await resposta.json()
+        
+        if(!dados.email) return null
+
         return dados
     } catch {
         return null

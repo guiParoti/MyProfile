@@ -1,4 +1,5 @@
 export interface Filme {
+    id_filme: number
     id: number
     title: string
     overview: string // descrição

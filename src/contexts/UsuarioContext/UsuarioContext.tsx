@@ -3,6 +3,7 @@ import type { Usuario } from "../../services/usuario";
 
 interface UsuarioContextProps {
     usuario: Usuario | null
+    autenticado: boolean
     cadastrar: (nome: string, email: string, senha: string) => void
     login: (email: string, senha: string) => void
 }

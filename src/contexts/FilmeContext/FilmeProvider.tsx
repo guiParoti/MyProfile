@@ -9,7 +9,6 @@ export const FilmeProvider = ({children} : {children: React.ReactNode}) => {
         setMeusFilmes([...meusFilmes, filme])
     }
 
-
     return (
         <FilmeContext.Provider value={{filmes: meusFilmes, adicionarFilme}}>
             {children}
