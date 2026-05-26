@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { buscaPorNomes, buscarPopulares, type Filme } from "../services/tmdb"
 import { useNavigate } from "react-router-dom"
-import { Buscar } from "../components/Buscar"
+import { Resultados } from "../components/Resultados"
 
 export const Home = () => {
     const [filmesPopulares, setFilmesPopulares] = useState<Filme[] | null>([])
@@ -59,9 +59,9 @@ return (
             </button>
         </div>
 
-        {/* Modal de busca */}
-        <Buscar show={showModal} resultados={resultados} onFechar={fecharModal}/>
-        
+        {/* Modal de Resultados de busca */}
+        <Resultados show={showModal} resultados={resultados} onFechar={fecharModal}/>
+
         {/* Grid de filmes populares */}
         <h3 className="text-xl font-bold text-gray-700 mb-4"> Populares</h3>
         <div className="grid grid-cols-4 gap-6">

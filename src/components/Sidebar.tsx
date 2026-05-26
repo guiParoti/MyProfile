@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { buscaPorNomes, type Filme } from "../services/tmdb";
-import { Buscar } from "./Buscar";
+import { Resultados } from "./Resultados";
 
 export const Sidebar = () => {
   const [nomeFilme, setNomeFilme] = useState<string>('')
@@ -31,7 +31,8 @@ export const Sidebar = () => {
       <button  onClick={() => setBusca(true)} className="text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg p-3 text-left transition-colors">
         Buscar
       </button>
-
+      
+      {/* Modal de busca */}
       {busca && (
         <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50" onClick={() => setBusca(false)}>
             <div className="bg-white rounded-2xl p-6 w-full max-w-lg max-h-[600px] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
@@ -47,7 +48,7 @@ export const Sidebar = () => {
             </div>
         </div>
       )}
-      <Buscar show={showModal} resultados={resultados} onFechar={fecharModal}/>
+      <Resultados show={showModal} resultados={resultados} onFechar={fecharModal}/>
       <button
         onClick={() => navigate("/home")}
         className="text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg p-3 text-left transition-colors"

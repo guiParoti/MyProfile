@@ -7,7 +7,8 @@ interface BuscarProps {
     onFechar: () => void
 }
 
-export const Buscar = ({show, resultados, onFechar}: BuscarProps) => {
+// Modal responsavel por exibir os resultados de busca por nome de um filme
+export const Resultados = ({show, resultados, onFechar}: BuscarProps) => {
     const navigate = useNavigate()
     
     return (
