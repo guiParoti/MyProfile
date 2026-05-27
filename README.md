@@ -1,73 +1,156 @@
-# React + TypeScript + Vite
+MyProfile — Plataforma de Avaliação de Filmes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação fullstack para descobrir, salvar e avaliar filmes. Integrada com a API do TMDB para busca e dados de filmes, com sistema completo de autenticação e reviews pessoais.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+ ## Funcionalidades
 
-## React Compiler
+-  Cadastro e login com senha criptografada (bcrypt)
+-  Sessão persistida via localStorage
+-  Busca de filmes pela API do TMDB
+-  Página de detalhes com banner dinâmico
+-  Salvar filmes com nota e review pessoal
+-  Editar e remover reviews
+-  Rotas protegidas por autenticação
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Tecnologias
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Frontend
+| Tecnologia | Versão |
+|---|---|
+| React | 19 |
+| TypeScript | 5+ |
+| Vite | 6+ |
+| Tailwind CSS | 4 |
+| React Router DOM | 7 |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Backend
+| Tecnologia | Descrição |
+|---|---|
+| Node.js | Runtime JavaScript |
+| Express | Framework web |
+| TypeScript | Tipagem estática |
+| MySQL2 | Driver do banco de dados |
+| bcrypt | Criptografia de senhas |
+| cors | Liberação de origens |
+| ts-node | Execução de TypeScript |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+##  Banco de Dados
+
+MySQL com as seguintes tabelas:
+
+```sql
+CREATE TABLE usuarios (
+  id_user INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  senha VARCHAR(150) NOT NULL
+);
+
+CREATE TABLE filmes (
+  id_filme INT AUTO_INCREMENT PRIMARY KEY,
+  tmdb_id INT NOT NULL,
+  titulo VARCHAR(100) NOT NULL,
+  poster_url VARCHAR(500) NOT NULL
+);
+
+CREATE TABLE reviews (
+  id_review INT AUTO_INCREMENT PRIMARY KEY,
+  nota INT NOT NULL,
+  review TEXT,
+  id_usuario INT NOT NULL,
+  id_filme INT NOT NULL,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_user),
+  FOREIGN KEY (id_filme) REFERENCES filmes(id_filme)
+);
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+##  Como rodar
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Pré-requisitos
+- Node.js 18+
+- MySQL rodando localmente
+- Conta no [TMDB](https://www.themoviedb.org/) para obter a chave da API
+
+### Backend
+
+```bash
+# Entre na pasta do backend
+cd myprofile-api
+
+# Instale as dependências
+npm install
+
+# Configure o banco em src/database.ts
+# Troque host, user, password e database pelas suas credenciais
+
+# Rode o servidor
+npx ts-node src/server.ts
 ```
+
+O servidor sobe na porta `3333`.
+
+### Frontend
+
+```bash
+# Entre na pasta do frontend
+cd myprofile
+
+# Instale as dependências
+npm install
+
+# Configure sua chave TMDB em src/services/tmdb.ts
+
+# Rode o projeto
+npm run dev
+```
+
+O frontend sobe em `http://localhost:5173`.
+
+---
+
+##  Estrutura do Projeto
+
+### Frontend
+src/
+pages/          # Páginas da aplicação
+components/     # Componentes reutilizáveis
+contexts/       # Context API (Auth, Filmes)
+services/       # Funções de chamada às APIs
+routes/         # Configuração de rotas
+
+### Backend
+src/
+routes/         # Rotas da API (usuarios, filmes, reviews)
+database.ts     # Conexão com MySQL
+server.ts       # Configuração do Express
+
+---
+
+## Variáveis necessárias
+
+### Backend — `src/database.ts`
+```ts
+host: "localhost"
+user: "seu_usuario_mysql"
+password: "sua_senha_mysql"
+database: "myprofile"
+```
+
+### Frontend — `src/services/tmdb.ts`
+```ts
+api_key: "sua_chave_tmdb"
+```
+
+---
+
+##  Autor
+
+Guilherme Paroti — desenvolvedor em evolução constante e que subiu as informações do database para github e que não fez a melhor modelagem de tabelas no banco, mas tudo bem que esse foi meu primeiro grande projeto full-stack ksksksksks.
