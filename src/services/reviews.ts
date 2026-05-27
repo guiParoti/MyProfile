@@ -47,3 +47,18 @@ export const removerFilme = async (id_review: number, id_filme: number) : Promis
         return null
     }
 }
+
+export const editarReview = async (id_review: number, nota: number, review: string) : Promise<Review[] | null> => {
+    try{
+        const resposta = await fetch(`http://localhost:3333/reviews/minhasreviews/editar`, {
+            method: "PUT",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({id_review, nota, review})
+        })
+        const dados = await resposta.json()
+        return dados    
+    } catch (e) {
+        console.log(e)
+        return []
+    }
+}
