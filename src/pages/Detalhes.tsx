@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { buscaPorId, type Filme } from "../services/tmdb";
-import { useFilme } from "../contexts/FilmeContext/UseFilme";
 import { useUsuario } from "../contexts/UsuarioContext/UseUsuario";
 import { salvarFilme } from "../services/filmes";
 import { salvarReview } from "../services/reviews";
@@ -12,7 +11,6 @@ export const Detalhes = () => {
   const [showReview, setShowReview] = useState<boolean>(false);
   const [nota, setNota] = useState<number>(1);
   const [review, setReview] = useState<string>("");
-  const { adicionarFilme } = useFilme()
   const { usuario } = useUsuario()
 
   const salvar = async () => {
@@ -20,7 +18,6 @@ export const Detalhes = () => {
       const filmeSalvo = await salvarFilme(filme.id, filme.title, filme.poster_path)
       if(filmeSalvo) {
         await salvarReview(nota, review, usuario.id_user as number, filmeSalvo.id_filme)
-        adicionarFilme(filme)
         setShowReview(false)
       }
     }
