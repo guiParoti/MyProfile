@@ -5,6 +5,7 @@ export interface Filme {
     overview: string // descrição
     popularity: number 
     poster_path: string
+    backdrop_path: string
     release_date: string
     vote_average: number
     runtime: number

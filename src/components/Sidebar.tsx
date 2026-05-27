@@ -2,13 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { buscaPorNomes, type Filme } from "../services/tmdb";
 import { Resultados } from "./Resultados";
+import { useUsuario } from "../contexts/UsuarioContext/UseUsuario";
 
 export const Sidebar = () => {
   const [nomeFilme, setNomeFilme] = useState<string>('')
   const [resultados, setResultados] = useState<Filme[]>([])
   const [showModal, setShowModal] = useState<boolean>(false)
   const [busca, setBusca] = useState<boolean>(false)
-   const navigate = useNavigate();
+  const { usuario, logout } = useUsuario()
+  const navigate = useNavigate();
 
   const buscarPorNome = async (nome: string) => {
     const filmes = await buscaPorNomes(nome);
@@ -62,6 +64,11 @@ export const Sidebar = () => {
       >
         Meus filmes
       </button>
+
+      <div className="mt-auto">
+        <p className="text-gray-400 text-sm mb-2">{usuario?.nome.toLocaleUpperCase()}</p>
+        <button onClick={logout} className="text-gray-300 hover:text-white hover:bg-red-700 rounded-lg p-3 w-full text-left transition-colors">Sair</button>
+      </div>
     </div>
   );
 };

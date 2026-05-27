@@ -5,7 +5,8 @@ interface UsuarioContextProps {
     usuario: Usuario | null
     autenticado: boolean
     cadastrar: (nome: string, email: string, senha: string) => void
-    login: (email: string, senha: string) => void
+    login: (email: string, senha: string) => string
+    logout: () => void
 }
 
 export const UsuarioContext = createContext<UsuarioContextProps | null>(null)

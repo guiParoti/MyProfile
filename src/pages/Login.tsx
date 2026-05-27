@@ -7,6 +7,7 @@ export const Login = () => {
     const [nomeCad, setNomeCad] = useState<string>('')
     const [emailCad, setEmailCad] = useState<string>('')
     const [senhaCad, setSenhaCad] = useState<string>('')
+    const [erro, setErro] = useState<string>('')
     const [showModal, setShowModal] = useState<boolean>(false)
     const { cadastrar, login } = useUsuario()
 
@@ -68,9 +69,14 @@ export const Login = () => {
                 transition-colors animação suave na troca de cor */}
                 <button type="button"
                     className="w-full p-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors"
-                    onClick={() => login(email, senha)}>
+                    onClick={() => {
+                        const dados = login(email, senha)
+                        if(dados) setErro(dados)}}>
                     Entrar
                 </button>
+                {erro && (
+                    <label className="text-sm font-medium text-red-600">{erro}</label>
+                )}
                 <label className="text-sm font-medium text-black-600 cursor-pointer" onClick={() => setShowModal(true)}>Não tem uma conta?</label>
     {showModal && (
     // fundo desfocado — igual os outros modais
