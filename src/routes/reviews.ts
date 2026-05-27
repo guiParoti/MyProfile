@@ -28,4 +28,13 @@ router.delete("/minhasreviews/remover", async (req, res) => {
     await database.execute("DELETE FROM filmes WHERE id_filme = ?", [id_filme])
     res.json({mensagem: "Filme removido!"})
 })
+
+
+router.put("/minhasreviews/editar", async (req, res) => {
+    const { id_review, nota, review } = req.body
+    const [rows] = await database.execute("UPDATE reviews set nota = ?, review = ? WHERE id_review = ?", [nota, review, id_review])
+    res.json(rows)
+})
+
+
 export default router
