@@ -14,13 +14,14 @@ router.post("/cadastro", async (req, res) => {
     const senhaHash = await bcrypt.hash(senha, 10)
 
     // insere no banco com o hash no lugar da senha original
-    await database.execute(
+    const [resultado] = await database.execute(
         "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)",
         [nome, email, senhaHash]
     )
+    const id_user = (resultado as any).insertId
 
     // retorna os dados do usuário criado (sem a senha)
-    res.json({ nome, email })
+    res.json({ id_user, nome, email })
 })
 
 router.post("/login", async (req, res) => {
