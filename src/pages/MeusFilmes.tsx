@@ -87,9 +87,6 @@ export const MeusFilmes = () => {
               <span className="font-bold text-sm text-gray-700">
                 {filme.titulo}
               </span>
-              {/*<span className="font-bold text-sm text-gray-700">{filme.release.slice(0, 4)}</span>/*}
-                            {/* line-clamp-2 limita o texto a 2 linhas com ... no final */}
-              {/*<span className="text-xs text-gray-400 line-clamp-3">{filme.}</span>*/}
             </div>
           </div>
         ))}
@@ -128,7 +125,9 @@ export const MeusFilmes = () => {
                 type="button"
                 className="bg-blue-600 text-white rounded-lg p-3 flex-1 hover:bg-blue-700"
                 onClick={() => {setShowEditar(true) 
-                    setShowReview(false)}}
+                    setShowReview(false)
+                    setNovaNota(review?.[0]?.nota as number)
+                    setNovaReview(review?.[0]?.review as string)}}
               >
                 Editar
               </button>
@@ -163,7 +162,7 @@ export const MeusFilmes = () => {
             className="bg-white rounded-2xl p-6 w-full max-w-lg"
           >
             <h3 className="text-xl font-bold mb-6 text-center">
-              {filme?.titulo}
+              Editar: {filme?.titulo}
             </h3>
             <div className="mb-4">
               <label className="text-sm font-bold text-gray-600 block mb-2text-sm font-bold text-gray-600 block mb-2">
